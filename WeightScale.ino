@@ -20,8 +20,9 @@ void setup() {
   Serial.println("calcolo della tara");
   Serial.println("non porre alcun oggetto sulla bilancia.....");
   
-  weightScale.set_scale(-224.16); // <---- valore di scala, scale value --------
-  weightScale.tare(30); // il peso attuale e' considerato tara Serial.println("sistema pronto");
+  weightScale.set_scale(-224.16); // scale value
+  weightScale.tare(30); // starting weight
+  Serial.println("system ready");
 }
 
 void loop() {
@@ -41,7 +42,9 @@ void loop() {
   previousWeight = weight;
   weight = sum / HISTORY_SIZE;
   
-  if (abs(previousWeight - weight) < TOLERANCE) { // se e' variato il peso
+  // check if weight changed (with tolerance)
+  if (abs(previousWeight - weight) < TOLERANCE) {
+    // print output
     Serial.print("weight: ");
     Serial.print(weight);
     Serial.println("g");
