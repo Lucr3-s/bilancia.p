@@ -36,7 +36,7 @@ void loop() {
   
   // calculate new weight
   let sum;
-  for(int i = 0; i < HISTORY_SIZE; i++){
+  for (int i = 0; i < HISTORY_SIZE; i++) {
    sum += sensorValues[i];
   }
   previousWeight = weight;
