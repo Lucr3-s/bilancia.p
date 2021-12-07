@@ -1,8 +1,10 @@
 #include <stdlib.h>
 #include "HX711.h"
 
+// constants (settings)
 const int HISTORY_SIZE = 10; // history size for calculating average
 const int TOLERANCE = 3; // 3g tolerance
+const int BAUD_RATE = 9600; // serial baud rate
 
 // global variables
 HX711 weightScale(2, 3);
@@ -11,17 +13,21 @@ int previousWeight = 0;
 int sensorValues[HISTORY_SIZE];
 
 void setup() {
+  // intialize array values to zero
   for(int i = 0; i < HISTORY_SIZE; i++) {
    sensorValues[i] = 0;
   }
   
-  Serial.begin(9600);
-
-  Serial.println("calcolo della tara");
-  Serial.println("non porre alcun oggetto sulla bilancia.....");
+  // intialize serial
+  Serial.begin(BAUD_RATE);
   
+  Serial.println("intializing");
+  Serial.println("do not place any object on the scale");
+  
+  // setup scale
   weightScale.set_scale(-224.16); // scale value
   weightScale.tare(30); // starting weight
+  
   Serial.println("system ready");
 }
 
